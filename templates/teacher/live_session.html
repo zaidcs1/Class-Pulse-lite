@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Live Attendance Session</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+
+            background: #f5f7fb;
+        }
+
+        .session-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            box-shadow:
+            0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .code {
+
+            font-size: 60px;
+
+            font-weight: bold;
+
+            letter-spacing: 10px;
+
+            color: #2563eb;
+        }
+
+        .timer {
+
+            font-size: 30px;
+
+            color: #dc2626;
+
+            font-weight: bold;
+        }
+
+        .summary-card {
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            background: #ffffff;
+
+            box-shadow:
+            0 5px 15px rgba(0,0,0,0.08);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="session-card text-center">
+
+                <h2>
+
+                    {{ session_data[4] }}
+
+                </h2>
+
+                <p class="text-muted">
+
+                    Live Attendance Session
+
+                </p>
+
+                <div class="code my-4">
+
+                    {{ session_data[1] }}
+
+                </div>
+
+                <!-- ACTIVE SESSION -->
+
+                {% if not session_expired %}
+
+                <div
+                    class="timer mb-4"
+                    id="timer"
+                >
+                    60
+                </div>
+
+                <h4 class="mb-4">
+
+                    Present Students:
+                    {{ present_count }}
+
+                </h4>
+
+                <div class="alert alert-success">
+
+                    Attendance session is currently active
+
+                </div>
+
+                {% else %}
+
+                <!-- EXPIRED SESSION -->
+
+                <div class="alert alert-danger mb-4">
+
+                    <h3>
+
+                        Attendance Session Expired
+
+                    </h3>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- PRESENT -->
+
+                    <div class="col-md-6">
+
+                        <div class="summary-card">
+
+                            <h5>
+
+                                Present Students
+
+                            </h5>
+
+                            <h1 class="text-success">
+
+                                {{ present_count }}
+
+                            </h1>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ABSENT -->
+
+                    <div class="col-md-6">
+
+                        <div class="summary-card">
+
+                            <h5>
+
+                                Absent Students
+
+                            </h5>
+
+                            <h1 class="text-danger">
+
+                                {{ absent_count }}
+
+                            </h1>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+let timeLeft = 60;
+
+const timer = document.getElementById('timer');
+
+if (timer) {
+
+    const countdown = setInterval(() => {
+
+        timeLeft--;
+
+        timer.innerHTML = timeLeft + " sec";
+
+        if (timeLeft <= 0) {
+
+            clearInterval(countdown);
+
+            // Refresh once after expiry
+            setTimeout(() => {
+
+                window.location.reload();
+
+            }, 1000);
+        }
+
+    }, 1000);
+}
+
+</script>
+
+</body>
+</html>

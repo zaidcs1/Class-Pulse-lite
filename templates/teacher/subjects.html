@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Subjects | Class Pulse</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+        }
+
+        .sidebar {
+
+            width: 260px;
+
+            height: 100vh;
+
+            background: #111827;
+
+            position: fixed;
+
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+
+            color: white;
+
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+        .sidebar a {
+
+            display: block;
+
+            color: #d1d5db;
+
+            text-decoration: none;
+
+            padding: 15px 25px;
+
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+
+            background: #1f2937;
+
+            color: white;
+        }
+
+        .main-content {
+
+            margin-left: 260px;
+
+            padding: 30px;
+        }
+
+        .topbar {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+            0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .subject-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            box-shadow:
+            0 2px 10px rgba(0,0,0,0.05);
+
+            transition: 0.3s;
+        }
+
+        .subject-card:hover {
+
+            transform: translateY(-5px);
+        }
+
+        .subject-icon {
+
+            font-size: 40px;
+
+            color: #2563eb;
+
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="sidebar">
+
+    <h2>Class Pulse</h2>
+
+    <a href="/teacher/dashboard">
+        Dashboard
+    </a>
+
+    <a href="/teacher/students">
+        Student Management
+    </a>
+
+    <a href="/teacher/subjects">
+        Subject Management
+    </a>
+
+    <a href="/teacher/attendance">
+        Attendance Sessions
+    </a>
+
+    <a href="#">
+        Reports
+    </a>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</div>
+
+<div class="main-content">
+
+    <div class="topbar d-flex justify-content-between align-items-center">
+
+        <div>
+
+            <h3>
+                Subject Management
+            </h3>
+
+            <p class="text-muted mb-0">
+                Manage all subjects
+            </p>
+
+        </div>
+
+        <a
+            href="/teacher/subjects/add"
+            class="btn btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+            Add Subject
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        {% for subject in subjects %}
+
+        <div class="col-md-4">
+
+            <div class="subject-card">
+
+                <div class="subject-icon">
+
+                    <i class="fa-solid fa-book"></i>
+
+                </div>
+
+                <h4>
+                    {{ subject[1] }}
+                </h4>
+
+                <p class="text-muted">
+
+                    Teacher:
+                    {{ subject[2] }}
+
+                </p>
+
+                <a
+                    href="/teacher/subjects/delete/{{ subject[0] }}"
+                    class="btn btn-danger btn-sm"
+                >
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
